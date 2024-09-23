@@ -9,16 +9,16 @@ import ru.kata.spring.boot_security.demo.DAO.UserRepository;
 import ru.kata.spring.boot_security.demo.model.User;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
+public class UserDetailsServiceImpl {//implements UserDetailsService {
+//    @Autowired
+//    private UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User with username: " + username + " not found!");
-        }
-        return new UserDetailsImpl(user);
-    }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = userRepository.findByUserName(username);
+//        if (user == null) {
+//            throw new UsernameNotFoundException("User with username: " + username + " not found!");
+//        }
+//        return new UserDetailsImpl(user);
+//    }
 }
