@@ -1,7 +1,8 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table
@@ -21,10 +22,13 @@ public class User {
 
     private String password;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)//, fetch = FetchType.EAGER
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "user_role"
+            , joinColumns = @JoinColumn(name = "user_id")
+            , inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roleList;
 
     public User() {
     }
@@ -83,12 +87,12 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public List<Role> getRoleList() {
+        return roleList;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
     }
 
     @Override
@@ -99,5 +103,9 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 '}';
+    }
+
+    public String userRolesToString() {
+        return this.roleList.stream().map(r -> ("[" + r.getRoleName() + "]")).collect(Collectors.joining());
     }
 }

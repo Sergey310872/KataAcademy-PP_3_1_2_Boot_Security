@@ -34,6 +34,7 @@ public class UserController {
     public String updateUser(@RequestParam("id") Optional<Long> id, Model model) {
         User user = serviceUser.getUserById(id.get());
         model.addAttribute("user", user);
+        model.addAttribute("roles", serviceUser.getAllRoles());
         return "user-details";
     }
 
@@ -46,6 +47,7 @@ public class UserController {
     @GetMapping("/add")
     public String addUser(ModelMap model) {
         model.addAttribute("user", new User());
+        model.addAttribute("roles", serviceUser.getAllRoles());
         return "user-details";
     }
 

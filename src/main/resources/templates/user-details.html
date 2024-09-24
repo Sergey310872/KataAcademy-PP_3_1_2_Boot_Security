@@ -43,10 +43,10 @@
             <td>
                 <form method="post" th:object="${user}">
                     <div class="form-group">
-                        <select class="form-control selectpicker" th:field="*{roles}" id="roles" multiple>
-                            <option th:each="role : ${T(ru.kata.spring.boot_security.demo.model.Role).values()}"
-                                    th:value="${role}"
-                                    th:text="${role}">role
+                        <select class="form-control selectpicker" th:field="*{roleList}" id="roles" multiple>
+                            <option th:each="role : ${roles}"
+                                    th:value="${role.id}"
+                                    th:text="${role.roleName}">role
                             </option>
                         </select>
                     </div>
