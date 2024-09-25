@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class TestData implements CommandLineRunner {
     @Autowired
-    private ServiceUser serviceUser;
+    private UserService userService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -25,8 +25,8 @@ public class TestData implements CommandLineRunner {
         user2.setPassword("admin");
         user2.setRoleList(List.of(new Role("ADMIN")));
 
-        serviceUser.updateUser(user1);
-        serviceUser.updateUser(user2);
+        userService.updateUser(user1);
+        userService.updateUser(user2);
     }
 
 }

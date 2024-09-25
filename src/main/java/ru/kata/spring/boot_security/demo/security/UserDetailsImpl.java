@@ -1,24 +1,25 @@
 package ru.kata.spring.boot_security.demo.security;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
 
     private final User user;
 
-    public UserDetailsImpl(User user) {
+    private Collection<GrantedAuthority> grantedAuthorities;
+
+    public UserDetailsImpl(User user, Collection<GrantedAuthority> grantedAuthorities) {
         this.user = user;
+        this.grantedAuthorities = grantedAuthorities;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRoleList().stream().map(s -> new SimpleGrantedAuthority("ROLE_" + s.getRoleName())).collect(Collectors.toList());
+        return grantedAuthorities;
     }
 
     @Override
